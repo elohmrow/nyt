@@ -1,0 +1,306 @@
+label: Offers
+icon: icon-news
+appClass: info.magnolia.ui.contentapp.ContentApp
+class: info.magnolia.ui.api.app.registry.ConfiguredAppDescriptor
+subApps:
+  browser:
+    label: Offers
+    subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
+    class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
+    contentConnector:
+      includeProperties: false
+      workspace: offers
+      rootPath: /
+      defaultOrder: jcrName
+      nodeTypes:
+        - icon: icon-node-content
+          name: offer
+          strict: true
+        - icon: icon-folder-l
+          name: mgnl:folder
+          strict: true
+    imageProvider:
+      originalImageNodeName: photo
+      imageProviderClass: info.magnolia.ui.imageprovider.DefaultImageProvider
+      class: info.magnolia.ui.imageprovider.definition.ConfiguredImageProviderDefinition
+    workbench:
+      dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
+      editable: true
+      contentViews:
+        - name: tree
+          class: info.magnolia.ui.workbench.tree.TreePresenterDefinition
+          columns:
+            - name: jcrName
+              sortable: true
+              label: Offer Name
+              propertyName: jcrName
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: country
+              propertyName: country
+              sortable: true
+              label: Offer Country
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: startdate
+              propertyName: startdate
+              sortable: true
+              label: Offer Start Date
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: enddate
+              propertyName: enddate
+              sortable: true
+              label: Offer End Date
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+    actions:
+      addFolder:
+        label: Add folder
+        icon: icon-add-folder
+        class: info.magnolia.ui.framework.action.AddFolderActionDefinition
+        availability:
+          writePermissionRequired: true
+          root: true
+          nodeTypes:
+            folder: mgnl:folder
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      editFolder:
+        label: Rename folder
+        dialogName: ui-framework:folder
+        icon: icon-edit
+        class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
+        availability:
+          root: true
+          writePermissionRequired: true
+          nodeTypes:
+            folder: mgnl:folder
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      addOffer:
+        subAppId: detail
+        label: Add Offer
+        icon: icon-add-item
+        nodeType: offer
+        appName: offers
+        class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
+        availability:
+          writePermissionRequired: true
+          root: true
+          nodeTypes:
+            folder: mgnl:folder
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      editOffer:
+        subAppId: detail
+        label: Edit Offer
+        icon: icon-edit
+        appName: offers
+        class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
+        availability:
+          writePermissionRequired: true
+          nodeTypes:
+            offer: offer
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      renameOffer:
+        label: Rename Offer
+        icon: icon-edit
+        dialogName: ui-framework:folder
+        class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
+        availability:
+          writePermissionRequired: true
+          nodeTypes:
+            offer: offer
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      delete:
+        label: Delete
+        asynchronous: true
+        command: markAsDeleted
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.MarkNodeAsDeletedActionDefinition
+        availability:
+          writePermissionRequired: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      activate:
+        command: activate
+        icon: icon-publish
+        catalog: versioned
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          writePermissionRequired: true
+      activateRecursive:
+        catalog: versioned
+        command: activate
+        icon: icon-publish-incl-sub
+        recursive: true
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          writePermissionRequired: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      deactivate:
+        catalog: versioned
+        command: deactivate
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        availability:
+          writePermissionRequired: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      export:
+        command: export
+        icon: icon-export
+        class: info.magnolia.ui.framework.action.ExportActionDefinition
+        availability:
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+      import:
+        dialogName: ui-admincentral:import
+        icon: icon-import
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          writePermissionRequired: true
+          root: true
+          rules:
+            - name: IsNotDeletedRule
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
+    actionbar:
+      defaultAction: editOffer
+      sections:
+        - name: root
+          label: Offers
+          availability:
+            nodes: false
+            root: true
+          groups:
+            - name: addActions
+              items:
+                - name: addOffer
+                - name: addFolder
+            - name: editActions
+              #items:
+            - name: publishingActions
+              items:
+                - name: activate
+                - name: activateRecursive
+                - name: deactivate
+            - name: eximActions
+              items:
+                - name: export
+                - name: import
+        - name: folder
+          label: Folder
+          availability:
+            nodeTypes:
+              folder: mgnl:folder
+          groups:
+            - name: addActions
+              items:
+                - name: addOffer
+                - name: addFolder
+            - name: editActions
+              items:
+                - name: editFolder
+                - name: delete
+            - name: publishingActions
+              items:
+                - name: activate
+                - name: activateRecursive
+                - name: deactivate
+            - name: eximActions
+              items:
+                - name: export
+                - name: import
+        - name: offer
+          label: Offer
+          availability:
+            nodeTypes:
+              offer: offer
+          groups:
+            - name: addActions
+              items:
+                - name: addOffer
+                - name: addFolder
+            - name: editActions
+              items:
+                - name: editOffer
+                - name: renameOffer
+                - name: delete
+            - name: publishingActions
+              items:
+                - name: activate
+                - name: activateRecursive
+                - name: deactivate
+            - name: eximActions
+              items:
+                - name: export
+                - name: import
+  detail:
+    label: Offer
+    subAppClass: info.magnolia.ui.contentapp.detail.DetailSubApp
+    class: info.magnolia.ui.contentapp.detail.DetailSubAppDescriptor
+    contentConnector:
+      defaultOrder: jcrName
+      includeProperties: false
+      rootPath: /
+      workspace: offers
+      nodeTypes:
+        - icon: icon-node-content
+          name: offer
+          strict: true
+        - icon: icon-folder-l
+          name: mgnl:folder
+          strict: true
+    editor:
+      nodeType:
+        icon: icon-items
+        name: offer
+      form:
+        description: Define the offer information
+        label: Edit offer
+        tabs:
+          - name: offer
+            label: Offer
+            fields:
+              - name: name
+                label: Offer Name
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                required: true
+ 
+              - name: country
+                label: Offer Country
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                required: true
+ 
+              - name: description
+                label: Offer Description
+                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+                required: true
+ 
+              - name: startdate
+                label: Start Date
+                class: info.magnolia.ui.form.field.definition.DateFieldDefinition
+                required: true
+              
+              - name: enddate
+                label: End Date
+                class: info.magnolia.ui.form.field.definition.DateFieldDefinition
+                required: true
+      actions:
+        - name: commit
+        - name: cancel
+    actions:
+      commit:
+        implementationClass: info.magnolia.ui.form.action.SaveFormAction
+        class: info.magnolia.ui.form.action.SaveFormActionDefinition
+      cancel:
+        class: info.magnolia.ui.form.action.CancelFormActionDefinition

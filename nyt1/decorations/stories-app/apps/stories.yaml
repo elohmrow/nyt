@@ -1,0 +1,10 @@
+subApps:
+  editor:
+    contentDefinition:
+ 
+      blocks:
+        - text
+        - image
+        - video
+        - externalLink
+        - quote

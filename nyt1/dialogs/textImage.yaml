@@ -1,0 +1,22 @@
+actions:
+  commit:
+    label: save changes
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    label: cancel
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+form:
+  tabs:
+    - name: tabMain
+      label: Text & Image Dialog
+      fields:
+        - name: text
+          label: text
+          description: enter some text
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          i18n: true
+        - name: image
+          binaryNodeName: image
+          label: image
+          description: upload an image
+          class: info.magnolia.ui.form.field.definition.BasicUploadFieldDefinition

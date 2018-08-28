@@ -1,0 +1,3 @@
+title: Offers List
+renderType: freemarker
+templateScript: /nyt1/templates/components/offersList.ftl

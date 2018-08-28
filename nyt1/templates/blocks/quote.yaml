@@ -1,0 +1,2 @@
+templateScript: /nyt1/templates/blocks/quote.ftl
+renderType: freemarker

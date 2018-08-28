@@ -1,0 +1,12 @@
+renderType: freemarker
+title: Offers Page
+templateScript: nyt1/templates/pages/offers.ftl
+
+areas:
+  main:
+    availableComponents:
+      eventsList:
+        id: nyt1:components/offersList
+      textImage:
+        #id: mtk:components/textImage
+        id: nyt1:components/textImage

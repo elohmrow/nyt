@@ -1,0 +1,8 @@
+class: info.magnolia.editor.block.stock.FieldSetBlockDefinition
+templateId: nyt1:blocks/quote
+fields:
+  quotation:
+    class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+    rows: 3
+  citedPerson:
+    class: info.magnolia.ui.form.field.definition.TextFieldDefinition

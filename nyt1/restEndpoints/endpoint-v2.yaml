@@ -1,0 +1,13 @@
+endpointPath: nyt2
+class: info.magnolia.rest.delivery.jcr.v2.JcrDeliveryEndpointDefinition
+workspace: website
+limit: 25
+depth: 10
+includeSystemProperties: false
+nodeTypes:
+  - mgnl:page
+  - mgnl:area
+  - mgnl:component
+childNodeTypes:
+  - mgnl:area
+  - mgnl:component

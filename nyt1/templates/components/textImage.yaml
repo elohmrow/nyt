@@ -1,0 +1,5 @@
+dialog: throwaway:textImage
+description: Enter text and image content
+renderType: freemarker
+title: Text & Image
+templateScript: /throwaway/templates/components/textImage.ftl

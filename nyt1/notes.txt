@@ -1,0 +1,41 @@
+https://github.com/magnolia-cms/headless-client-travel-demo
+https://api.jquery.com/jquery.getjson/
+http://localhost/~bandersen/headless-client-travel-demo/travel-spa/#/ <-- not running in magnolia, but using magnolia data
+
+
+stories app
+	https://documentation.magnolia-cms.com/display/DOCS57/Stories+app
+
+normal page variants in action
+	http://localhost:8080/magnoliaAuthor/offers1.html?previewCountry=cn
+	http://localhost:8080/magnoliaAuthor/offers1.html?previewCountry=us
+
+personalization links
+	https://documentation.magnolia-cms.com/display/DOCS57/Component+personalization
+	https://documentation.magnolia-cms.com/display/DOCS57/My+first+personalized+campaign (example exercise for personalization at the page level)
+	
+internationalization
+	https://documentation.magnolia-cms.com/display/DOCS57/i18n+best+practices
+	https://wiki.magnolia-cms.com/display/DeveloperTraining55/Content+i18n
+
+exercise from training (content apps)
+	https://wiki.magnolia-cms.com/display/DeveloperTraining55/Content+Apps
+
+delivery endpoint / REST links
+	https://documentation.magnolia-cms.com/display/DOCS57/Delivery+endpoint+API+v2
+		^ for configuring it, see "Location of the endpoint definitions"
+		https://shapeshed.com/jq-json/
+	https://documentation.magnolia-cms.com/display/DOCS55/My+first+REST+request
+	https://documentation.magnolia-cms.com/display/DOCS56/Tools+to+test+REST+requests
+	
+example (v2):	
+~/nyt/light-modules/nyt1\-> curl 'http://localhost:8080/.rest/nyt/offers-1' -u superuser:superuser
+{"@name":"offers-1","@path":"/offers-1","@id":"23982737-d4ed-4017-b130-7ee54ae6cb2a","@nodeType":"mgnl:page","main":{"@name":"main","@path":"/offers-1/main","@id":"dc064e3f-d221-42d6-947d-be5a7c3024ea","@nodeType":"mgnl:area","0":{"@name":"0","@path":"/offers-1/main/0","@id":"34783308-5bab-4ddf-803f-69e3cad3860c","@nodeType":"mgnl:component","@nodes":[]},"@nodes":["0"]},"@nodes":["main"]}~/nyt/light-modules/nyt1\->
+^^ notice how this is giving me node identifiers, but not the actual data ... do I need to make a second query to get that info? <-- yep ... i need to process the result with jq (or otherwise) and then grab everything in subsequent calls
+
+example (v1):
+curl -X GET 'http://localhost:8080/.rest/delivery/website/v1/offers-1' -u superuser:superuser
+{"@name":"offers-1","@path":"/offers-1","@id":"23982737-d4ed-4017-b130-7ee54ae6cb2a","@nodeType":"mgnl:page","mgnl:createdBy":"superuser","jcr:createdBy":"admin","mgnl:lastModified":"2018-08-28T07:25:00.728+02:00","mgnl:template":"nyt1:pages/offers","jcr:mixinTypes":["mgnl:hasVariant"],"jcr:created":"2018-08-28T07:24:32.881+02:00","mgnl:created":"2018-08-28T07:24:32.881+02:00","mgnl:lastModifiedBy":"superuser","main":{"@name":"main","@path":"/offers-1/main","@id":"dc064e3f-d221-42d6-947d-be5a7c3024ea","@nodeType":"mgnl:area","mgnl:createdBy":"superuser","jcr:createdBy":"admin","mgnl:lastModified":"2018-08-28T07:24:39.719+02:00","jcr:created":"2018-08-28T07:24:35.323+02:00","mgnl:created":"2018-08-28T07:24:35.333+02:00","mgnl:lastModifiedBy":"superuser","0":{"@name":"0","@path":"/offers-1/main/0","@id":"34783308-5bab-4ddf-803f-69e3cad3860c","@nodeType":"mgnl:component","mgnl:createdBy":"superuser","jcr:createdBy":"admin","mgnl:lastModified":"2018-08-28T07:24:39.720+02:00","mgnl:template":"nyt1:components/offersList","jcr:created":"2018-08-28T07:24:39.719+02:00","mgnl:created":"2018-08-28T07:24:39.720+02:00","mgnl:lastModifiedBy":"superuser","@nodes":[]},"@nodes":["0"]},"@nodes":["main"]}
+	
+bootstrapping xml in light modules
+	https://documentation.magnolia-cms.com/display/DOCS57/Content+Importer+module

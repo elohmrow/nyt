@@ -1,0 +1,11 @@
+endpointPath: demo
+class: info.magnolia.rest.delivery.jcr.v2.JcrDeliveryEndpointDefinition
+workspace: website
+rootPath: /
+depth: 6
+nodeTypes:
+- mgnl:page
+childNodeTypes:
+- mgnl:area
+- mgnl:component
+limit: 100

@@ -1,0 +1,9 @@
+renderType: freemarker
+title: Block Page
+templateScript: nyt1/templates/pages/block.ftl
+
+areas:
+  main:
+    availableComponents:
+      eventsList:
+        id: nyt1:components/offersList

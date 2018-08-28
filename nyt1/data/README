@@ -1,0 +1,8 @@
+- you need to give superuser rw access on the workspace 'offers'
+- you need to give anon r access on the workspace 'offers'
+
+bootstraps are in data/ (this dir) ... you need to follow directions here for it to work:
+https://documentation.magnolia-cms.com/display/DOCS57/Content+Importer+module
+or, just manually import them to a running magnolia instance
+
+
